@@ -62,7 +62,7 @@ import {
 } from '../utils/signatureStorage';
 import { soundEffects, playSaveSuccessSound } from '../utils/soundEffects';
 import { useNotification } from '../context/NotificationContext';
-import { getGeminiApiKey, setCustomGeminiApiKey, testGeminiConnection, maskApiKey, GEMINI_MODEL_TEXT, DEFAULT_GEMINI_KEY } from '../utils/geminiClient';
+import { getGeminiApiKey, setCustomGeminiApiKey, testGeminiConnection, maskApiKey, GEMINI_MODEL_TEXT } from '../utils/geminiClient';
 import { collectAllPagesBackupData, restoreAllPagesDataFromJSON, countTotalKegiatan } from '../utils/backupHelper';
 import type { 
   BkuData, 
@@ -474,9 +474,9 @@ export const Pengaturan: React.FC<PengaturanProps> = ({
   };
 
   const handleResetGeminiKey = () => {
-    setGeminiKeyInput(DEFAULT_GEMINI_KEY);
-    setCustomGeminiApiKey(DEFAULT_GEMINI_KEY);
-    addNotification('API Key Gemini dikembalikan ke default bawaan sistem!', 'info');
+    setCustomGeminiApiKey('');
+    setGeminiKeyInput(getGeminiApiKey());
+    addNotification('API Key tersimpan dihapus. Konfigurasi environment akan digunakan jika tersedia.', 'info');
   };
 
   // Listen to signature storage updates
@@ -1739,7 +1739,7 @@ export const Pengaturan: React.FC<PengaturanProps> = ({
                       type={showFullApiKey ? 'text' : 'password'}
                       value={geminiKeyInput}
                       onChange={(e) => setGeminiKeyInput(e.target.value)}
-                      placeholder="Masukkan Gemini API Key (AQ.Ab...)"
+                      placeholder="Masukkan Gemini API Key"
                       className="w-full bg-slate-950/90 border border-teal-500/30 rounded-lg p-2.5 pr-10 text-xs text-slate-100 font-mono focus:ring-2 focus:ring-teal-400 focus:outline-none"
                     />
                     <button

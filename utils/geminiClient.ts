@@ -1,6 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
 
-export const DEFAULT_GEMINI_KEY = '';
 export const GEMINI_MODEL_TEXT = 'gemini-3.8-flash';
 export const GEMINI_FALLBACK_MODELS = ['gemini-3.8-flash', 'gemini-flash-latest', 'gemini-3.1-flash-lite'];
 
@@ -8,7 +7,6 @@ export const GEMINI_FALLBACK_MODELS = ['gemini-3.8-flash', 'gemini-flash-latest'
  * Mendapatkan API Key Gemini yang aktif:
  * 1. Penyimpanan lokal pengguna (localStorage)
  * 2. Environment variable Vite / Node (VITE_GEMINI_API_KEY / GEMINI_API_KEY)
- * 3. Default API Key yang disediakan sistem
  */
 export const getGeminiApiKey = (): string => {
   if (typeof window !== 'undefined') {
@@ -33,7 +31,7 @@ export const getGeminiApiKey = (): string => {
     // Ignore error in non-module environments
   }
 
-  return DEFAULT_GEMINI_KEY;
+  return '';
 };
 
 /**
