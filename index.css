@@ -1,0 +1,449 @@
+/* Custom Styles & Scrollbar Configuration */
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1; /* slate-300 */
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; /* slate-400 */
+  }
+
+  .sidebar-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1; /* slate-300 */
+    border-radius: 10px;
+  }
+  .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; /* slate-400 */
+  }
+  .sidebar-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+}
+
+html, body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Global Print Settings */
+@media print {
+  @page {
+    size: auto;
+    margin: 10mm;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+  }
+
+  #root, #root > div, main, .overflow-hidden, .overflow-y-auto, .overflow-x-hidden {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+    max-height: none !important;
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Always hide elements with no-print class or navigation */
+  aside,
+  header,
+  nav,
+  [role="alert"],
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+
+  /* Tables pagination and breaking across pages */
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tfoot {
+    display: table-footer-group !important;
+  }
+
+  /* Khusus tabel matriks bulanan: row total komulatif hanya ditampilkan
+   paling bawah tabel di atas signature saat tabel melebihi satu halaman cetak */
+  .matrix-print-table tfoot,
+  #printable-matriks-bulanan-doc tfoot,
+  #printable-matrix-modal-doc tfoot,
+  .print-matriks-bulanan-mode tfoot,
+  .print-matrix-modal-mode tfoot {
+    display: table-row-group !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .matrix-print-table tfoot tr,
+  #printable-matriks-bulanan-doc tfoot tr,
+  #printable-matrix-modal-doc tfoot tr,
+  .print-matriks-bulanan-mode tfoot tr,
+  .print-matrix-modal-mode tfoot tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Specific RAPB compact printing to avoid wasting paper & prevent broken text */
+  #printable-area-anggaran-full,
+  .print-compact-mode {
+    font-size: 9.5px !important;
+    line-height: 1.25 !important;
+  }
+
+  #printable-area-anggaran-full table,
+  .rapb-print-table {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  #printable-area-anggaran-full tbody,
+  .rapb-print-table tbody {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  #printable-area-anggaran-full tr,
+  .rapb-print-table tr,
+  .print-item-row,
+  .print-subtotal-row {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  #printable-area-anggaran-full td,
+  #printable-area-anggaran-full th,
+  .rapb-print-table td,
+  .rapb-print-table th {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    hyphens: none !important;
+  }
+
+  .print-header-kop,
+  .print-group-header {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  .rapb-group-block {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  .break-inside-avoid,
+  .signature-section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Signature Section & Digital Signatures Layering in Print / PDF */
+  .signature-section,
+  .signature-box,
+  .signature-table,
+  [class*="signature"] {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    position: relative !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* Signature Image Visibility and Layering */
+  .signature-section img:not([alt*="Stempel"]),
+  img[alt*="TTD"],
+  img[alt*="Tanda Tangan"],
+  .signature-img {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* Official Stamp Layering & Opacity */
+  [title*="Stempel"],
+  [class*="stempel"],
+  img[alt*="Stempel"],
+  .stamp-overlay,
+  .stamp-img {
+    visibility: visible !important;
+    opacity: 0.88 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    z-index: 5 !important;
+    mix-blend-mode: multiply !important;
+  }
+
+  /* Signer Names and Labels */
+  .signature-section span,
+  .signature-section p,
+  .signature-name,
+  .sig-name {
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #000000 !important;
+    position: relative !important;
+    z-index: 20 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  .page-break-before {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  /* When printing standalone receipt modal with print-receipt-mode */
+  body.print-receipt-mode {
+    background: #ffffff !important;
+  }
+
+  body.print-receipt-mode #root,
+  body.print-receipt-mode #printable-area-bkp-full,
+  body.print-receipt-mode #printable-area-bku-full,
+  body.print-receipt-mode #printable-area,
+  body.print-receipt-mode [id^="printable-area-"] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  body.print-receipt-mode #printable-receipt-dana-punia,
+  body.print-receipt-mode #printable-receipt-nota-belanja,
+  body.print-receipt-mode #printable-receipt-sasah-abu {
+    display: block !important;
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 16px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: none !important;
+    z-index: 99999999 !important;
+  }
+
+  body.print-receipt-mode #printable-receipt-dana-punia *,
+  body.print-receipt-mode #printable-receipt-nota-belanja *,
+  body.print-receipt-mode #printable-receipt-sasah-abu * {
+    visibility: visible !important;
+  }
+
+  /* When printing standalone narrative recapitulation template with print-rekap-naratif-mode or print-lra-naratif-mode */
+  body.print-rekap-naratif-mode,
+  body.print-lra-naratif-mode {
+    background: #ffffff !important;
+  }
+
+  body.print-rekap-naratif-mode #root,
+  body.print-rekap-naratif-mode #rekap-printable-area,
+  body.print-rekap-naratif-mode #lra-printable-area,
+  body.print-rekap-naratif-mode #lra-onepage-printable-container,
+  body.print-rekap-naratif-mode #lra-onepage-fullscreen-printable,
+  body.print-rekap-naratif-mode #printable-area-bkp-full,
+  body.print-rekap-naratif-mode #printable-area-bku-full,
+  body.print-rekap-naratif-mode #printable-area,
+  body.print-rekap-naratif-mode [id^="printable-area-"],
+  body.print-rekap-naratif-mode #printable-receipt-dana-punia,
+  body.print-rekap-naratif-mode #printable-receipt-nota-belanja,
+  body.print-rekap-naratif-mode #printable-receipt-sasah-abu,
+  body.print-lra-naratif-mode #root,
+  body.print-lra-naratif-mode #rekap-printable-area,
+  body.print-lra-naratif-mode #lra-printable-area,
+  body.print-lra-naratif-mode #lra-onepage-printable-container,
+  body.print-lra-naratif-mode #lra-onepage-fullscreen-printable,
+  body.print-lra-naratif-mode #printable-area-bkp-full,
+  body.print-lra-naratif-mode #printable-area-bku-full,
+  body.print-lra-naratif-mode #printable-area,
+  body.print-lra-naratif-mode [id^="printable-area-"],
+  body.print-lra-naratif-mode #printable-receipt-dana-punia,
+  body.print-lra-naratif-mode #printable-receipt-nota-belanja,
+  body.print-lra-naratif-mode #printable-receipt-sasah-abu {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  body.print-rekap-naratif-mode #printable-rekap-naratif,
+  body.print-rekap-naratif-mode .printable-rekap-naratif {
+    display: block !important;
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 12mm 15mm !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: none !important;
+    z-index: 99999999 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.4 !important;
+  }
+
+  body.print-lra-naratif-mode #printable-lra-naratif,
+  body.print-lra-naratif-mode .printable-lra-naratif {
+    display: block !important;
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 12mm 15mm !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: none !important;
+    z-index: 99999999 !important;
+    font-size: 10.5pt !important;
+    line-height: 1.4 !important;
+  }
+
+  body.print-rekap-naratif-mode #printable-rekap-naratif *,
+  body.print-rekap-naratif-mode .printable-rekap-naratif * {
+    visibility: visible !important;
+  }
+
+  body.print-lra-naratif-mode #printable-lra-naratif *,
+  body.print-lra-naratif-mode .printable-lra-naratif * {
+    visibility: visible !important;
+  }
+
+  /* When printing standalone Formulir Naratif Kalkulasi mode */
+  body.print-formulir-kalkulasi-mode {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  body.print-formulir-kalkulasi-mode #root,
+  body.print-formulir-kalkulasi-mode #rekap-printable-area,
+  body.print-formulir-kalkulasi-mode #lra-printable-area,
+  body.print-formulir-kalkulasi-mode #lra-onepage-printable-container,
+  body.print-formulir-kalkulasi-mode #lra-onepage-fullscreen-printable,
+  body.print-formulir-kalkulasi-mode #printable-area-bkp-full,
+  body.print-formulir-kalkulasi-mode #printable-area-bku-full,
+  body.print-formulir-kalkulasi-mode #printable-area,
+  body.print-formulir-kalkulasi-mode [id^="printable-area-"],
+  body.print-formulir-kalkulasi-mode #printable-receipt-dana-punia,
+  body.print-formulir-kalkulasi-mode #printable-receipt-nota-belanja,
+  body.print-formulir-kalkulasi-mode #printable-receipt-sasah-abu,
+  body.print-formulir-kalkulasi-mode #printable-rekap-naratif,
+  body.print-formulir-kalkulasi-mode #printable-lra-naratif {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  body.print-formulir-kalkulasi-mode #formulir-naratif-portal-modal {
+    position: static !important;
+    display: block !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+    z-index: auto !important;
+  }
+
+  body.print-formulir-kalkulasi-mode .formulir-naratif-toolbar,
+  body.print-formulir-kalkulasi-mode .no-print {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  body.print-formulir-kalkulasi-mode .formulir-naratif-scroll-area {
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  body.print-formulir-kalkulasi-mode #printable-formulir-kalkulasi,
+  body.print-formulir-kalkulasi-mode .printable-formulir-kalkulasi {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 10pt !important;
+    line-height: 1.45 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.print-formulir-kalkulasi-mode #printable-formulir-kalkulasi *,
+  body.print-formulir-kalkulasi-mode .printable-formulir-kalkulasi * {
+    visibility: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

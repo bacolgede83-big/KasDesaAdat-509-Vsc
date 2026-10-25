@@ -1,0 +1,8 @@
+{
+  "name": "Desa Adat V.5.0.9 (BG-VSC)",
+  "description": "Perencanaan Anggaran dengan Sub Rincian Pengganggaran.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
